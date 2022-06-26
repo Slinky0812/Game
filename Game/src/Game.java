@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.*;
 
 
 public class Game extends Canvas implements Runnable {
@@ -11,9 +12,20 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private boolean running = false;
 
+    private Random r;
+    private Handler handler;
+
     //constructor
     public Game() {
         new Window(WIDTH, HEIGHT, "Let's build a game!", this);
+        handler = new Handler();
+        r = new Random();
+
+        for (int i = 0; i < 50; i++) {
+            handler.addObject(new Player(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.Player));
+        }
+
+        handler.addObject(new Player(100, 100, ID.Player));
     }
 
     public synchronized void start() {
@@ -67,7 +79,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick() {
-
+        handler.tick();
     }
 
     private void render() {
@@ -84,6 +96,9 @@ public class Game extends Canvas implements Runnable {
         //colouring the blackground
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
+
+        //rendering the game objects]
+        handler.render(g);
 
         g.dispose();
         bs.show();
