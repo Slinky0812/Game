@@ -30,18 +30,6 @@ public class KeyInput extends KeyAdapter{
                 } else if (key == KeyEvent.VK_D) {
                     tempObject.setVelX(5);
                 }
-            //if the temp object is player2
-            } else if (tempObject.getId() == ID.Player2) {
-                //key events for player 2
-                if (key == KeyEvent.VK_UP) {
-                    tempObject.setVelY(-5);
-                } else if (key == KeyEvent.VK_DOWN) {
-                    tempObject.setVelY(5);
-                } else if (key == KeyEvent.VK_LEFT) {
-                    tempObject.setVelX(-5);
-                } else if (key == KeyEvent.VK_RIGHT) {
-                    tempObject.setVelX(5);
-                }
             }
         }
     }
@@ -66,19 +54,12 @@ public class KeyInput extends KeyAdapter{
                 } else if (key == KeyEvent.VK_D) {
                     tempObject.setVelX(0);
                 }
-            //if the temp object is player2
-            } else if (tempObject.getId() == ID.Player2) {
-                //key events for player 2
-                if (key == KeyEvent.VK_UP) {
-                    tempObject.setVelY(0);
-                } else if (key == KeyEvent.VK_DOWN) {
-                    tempObject.setVelY(0);
-                } else if (key == KeyEvent.VK_LEFT) {
-                    tempObject.setVelX(0);
-                } else if (key == KeyEvent.VK_RIGHT) {
-                    tempObject.setVelX(0);
-                }
             }
+        }
+
+        //allows us to escape the game using the escape key
+        if (key == KeyEvent.VK_ESCAPE) {
+            System.exit(1);
         }
     }
     

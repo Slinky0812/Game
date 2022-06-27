@@ -14,15 +14,20 @@ public class Game extends Canvas implements Runnable {
 
     private Random r;
     private Handler handler;
+    private HUD hud;
 
     //constructor
     public Game() {
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
         new Window(WIDTH, HEIGHT, "Let's build a game!", this);
+        hud = new HUD();
         r = new Random();
         handler.addObject(new Player(WIDTH/2 - 32, HEIGHT/2 - 32, ID.Player)); //player spawns in the middle of the screen
-        handler.addObject(new Player(WIDTH/2 + 64, HEIGHT/2 + 64, ID.Player2));
+        for (int i = 0; i < 20; i++) {
+            handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy));
+        }
+        //handler.addObject(new BasicEnemy(WIDTH/2 - 32, HEIGHT/2 - 32, ID.BasicEnemy)); //enemy spawns in the middle of the screen
     }
 
     public synchronized void start() {
@@ -45,6 +50,9 @@ public class Game extends Canvas implements Runnable {
     }
 
     public void run() {
+        //means the user doesn't need to click on the screen to use keyboard controls
+        this.requestFocus();
+
         //game loop, very commonly used        
         long lastTime = System.nanoTime();
         double amountOfTicks = 60.0;
@@ -66,7 +74,6 @@ public class Game extends Canvas implements Runnable {
             frames++;
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-                System.out.println("FPS: " + frames);
                 frames = 0;
             }
         }
@@ -77,6 +84,7 @@ public class Game extends Canvas implements Runnable {
 
     private void tick() {
         handler.tick();
+        hud.tick();
     }
 
     private void render() {
@@ -97,8 +105,23 @@ public class Game extends Canvas implements Runnable {
         //rendering the game objects]
         handler.render(g);
 
+        hud.render(g);
+
         g.dispose();
         bs.show();
+    }
+
+    //sets our boundaries for our player
+    public static int clamp (int var, int min, int max) {
+        //if our var is greater than max, return max so it doesn't go over max
+        if (var >= max) {
+            return var = max;
+        //if our var is less than max, return max so it doesn't go over min
+        } else if (var <= min) {
+            return var = min;
+        } else {
+            return var;
+        }
     }
 
     public static void main (String args[]) {
