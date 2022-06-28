@@ -37,11 +37,10 @@ public class Player extends GameObject {
             GameObject tempObject = handler.objects.get(i);
 
             //if the temp object is an enemy
-            if (tempObject.getId() == ID.BasicEnemy) {
+            if (tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy) {
                 //collision code
                 if (getBounds().intersects(tempObject.getBounds())) {
                     HUD.health -= 5;
-                    //HUD.score += 10;
                 }
             }
         }
@@ -51,6 +50,5 @@ public class Player extends GameObject {
         g.setColor(Color.blue);
         g.fillRect(x, y, 32, 32);
     }
-
 
 }

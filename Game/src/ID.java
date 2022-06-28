@@ -3,6 +3,7 @@ public enum ID {
     Player(),
     BasicEnemy(),
     Trail(),
+    FastEnemy(),
 //     Coin(),
 //     Bullet(),
 //     Particle();

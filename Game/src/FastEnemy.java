@@ -1,17 +1,16 @@
 import java.awt.*;
 
-public class BasicEnemy extends GameObject {
-
+public class FastEnemy extends GameObject{
     private Handler handler;
 
     //constructor
-    public BasicEnemy(int x, int y, ID id, Handler handler) {
+    public FastEnemy(int x, int y, ID id, Handler handler) {
         super(x, y, id);
 
         this.handler = handler;
 
-        velX = 5;
-        velY = 5;
+        velX = 2;
+        velY = 9;
     }
 
     public Rectangle getBounds() {
@@ -30,14 +29,13 @@ public class BasicEnemy extends GameObject {
             velX *= -1;
         }
 
-        handler.addObject(new Trail(x, y, ID.Trail, Color.red, 16, 16, 0.1f, handler));
+        handler.addObject(new Trail(x, y, ID.Trail, Color.CYAN, 16, 16, 0.1f, handler));
 
     }
 
     //draws our enemy
     public void render(Graphics g) {
-        g.setColor(Color.red);
+        g.setColor(Color.CYAN);
         g.fillRect(x, y, 16, 16);
     }
-    
 }

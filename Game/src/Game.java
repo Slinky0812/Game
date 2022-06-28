@@ -15,6 +15,7 @@ public class Game extends Canvas implements Runnable {
     private Random r;
     private Handler handler;
     private HUD hud;
+    private Spawn spawn;
 
     //constructor
     public Game() {
@@ -22,9 +23,10 @@ public class Game extends Canvas implements Runnable {
         this.addKeyListener(new KeyInput(handler));
         new Window(WIDTH, HEIGHT, "Let's build a game!", this);
         hud = new HUD();
+        spawn = new Spawn(handler, hud);
         r = new Random();
         handler.addObject(new Player(WIDTH/2 - 32, HEIGHT/2 - 32, ID.Player, handler)); //player spawns in the middle of the screen
-        handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy, handler));
+        handler.addObject(new BasicEnemy(r.nextInt(WIDTH - 50), r.nextInt(HEIGHT - 50), ID.BasicEnemy, handler));
     }
 
     public synchronized void start() {
@@ -42,8 +44,6 @@ public class Game extends Canvas implements Runnable {
             //run an error bug in our console and tell us what happened
             e.printStackTrace();
         }
-
-
     }
 
     public void run() {
@@ -82,6 +82,7 @@ public class Game extends Canvas implements Runnable {
     private void tick() {
         handler.tick();
         hud.tick();
+        spawn.tick();
     }
 
     private void render() {
