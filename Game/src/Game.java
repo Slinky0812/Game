@@ -23,11 +23,8 @@ public class Game extends Canvas implements Runnable {
         new Window(WIDTH, HEIGHT, "Let's build a game!", this);
         hud = new HUD();
         r = new Random();
-        handler.addObject(new Player(WIDTH/2 - 32, HEIGHT/2 - 32, ID.Player)); //player spawns in the middle of the screen
-        for (int i = 0; i < 20; i++) {
-            handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy));
-        }
-        //handler.addObject(new BasicEnemy(WIDTH/2 - 32, HEIGHT/2 - 32, ID.BasicEnemy)); //enemy spawns in the middle of the screen
+        handler.addObject(new Player(WIDTH/2 - 32, HEIGHT/2 - 32, ID.Player, handler)); //player spawns in the middle of the screen
+        handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy, handler));
     }
 
     public synchronized void start() {

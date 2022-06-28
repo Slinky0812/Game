@@ -2,6 +2,7 @@
 public enum ID {
     Player(),
     BasicEnemy(),
+    Trail(),
 //     Coin(),
 //     Bullet(),
 //     Particle();

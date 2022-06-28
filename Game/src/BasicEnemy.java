@@ -2,12 +2,20 @@ import java.awt.*;
 
 public class BasicEnemy extends GameObject {
 
+    private Handler handler;
+
     //constructor
-    public BasicEnemy(int x, int y, ID id) {
+    public BasicEnemy(int x, int y, ID id, Handler handler) {
         super(x, y, id);
+
+        this.handler = handler;
 
         velX = 5;
         velY = 5;
+    }
+
+    public Rectangle getBounds() {
+        return new Rectangle(x, y, 16, 16);
     }
 
     //makes our enemy move
@@ -22,6 +30,7 @@ public class BasicEnemy extends GameObject {
             velX *= -1;
         }
 
+        handler.addObject(new Trail(x, y, ID.Trail, Color.red, 16, 16, 0.1f, handler));
 
     }
 
