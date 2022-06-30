@@ -4,14 +4,14 @@ import java.awt.*;
 public abstract class GameObject {
 
     //protected means it can only be accessed by classes that extend this class
-    protected int x, y;
+    protected float x, y;
     //ID variable to know which type of object it is
     protected ID id;
     //controls the speed in our x and y directions
-    protected int velX, velY;
+    protected float velX, velY;
 
     //constructor
-    public GameObject(int x, int y, ID id) {
+    public GameObject(float x, float y, ID id) {
         this.x = x;
         this.y = y;
         this.id = id;
@@ -22,11 +22,11 @@ public abstract class GameObject {
     public abstract Rectangle getBounds();
 
     //setters
-    public void setX(int x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public void setY(int y) {
+    public void setY(float y) {
         this.y = y;
     }
 
@@ -34,20 +34,20 @@ public abstract class GameObject {
         this.id = id;
     }
 
-    public void setVelX(int velX) {
+    public void setVelX(float velX) {
         this.velX = velX;
     }
 
-    public void setVelY(int velY) {
+    public void setVelY(float velY) {
         this.velY = velY;
     }
 
     //getters
-    public int getX() {
+    public float getX() {
         return x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
@@ -55,11 +55,11 @@ public abstract class GameObject {
         return id;
     }
 
-    public int getVelX() {
+    public float getVelX() {
         return velX;
     }
 
-    public int getVelY() {
+    public float getVelY() {
         return velY;
     }
 

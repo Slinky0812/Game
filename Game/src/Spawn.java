@@ -16,7 +16,7 @@ public class Spawn {
     public void tick() {
         scoreKeep+=1;
 
-        if (scoreKeep >= 500) {
+        if (scoreKeep >= 100) {
             scoreKeep = 0;
             hud.setLevel(hud.getLevel() + 1);
 
@@ -27,10 +27,10 @@ public class Spawn {
                 handler.addObject(new BasicEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.BasicEnemy, handler));
             } else if (hud.getLevel() == 4) {
                 handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT -50), ID.FastEnemy, handler));
-                //handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.SmartEnemy, handler));
-            } //else if (hud.getLevel() == 5) {
-            //     handler.addObject(new TankEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.TankEnemy, handler));
-            // } else if (hud.getLevel() == 6) {
+            } else if (hud.getLevel() == 5) {
+                handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
+                //handler.addObject(new TankEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.TankEnemy, handler));
+            } //else if (hud.getLevel() == 6) {
             //     handler.addObject(new FastEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.FastEnemy, handler));
             // } else if (hud.getLevel() == 7) {
             //     handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH), r.nextInt(Game.HEIGHT), ID.SmartEnemy, handler));

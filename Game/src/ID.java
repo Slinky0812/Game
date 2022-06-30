@@ -4,7 +4,5 @@ public enum ID {
     BasicEnemy(),
     Trail(),
     FastEnemy(),
-//     Coin(),
-//     Bullet(),
-//     Particle();
+    SmartEnemy(),
 }

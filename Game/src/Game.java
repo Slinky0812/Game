@@ -26,7 +26,8 @@ public class Game extends Canvas implements Runnable {
         spawn = new Spawn(handler, hud);
         r = new Random();
         handler.addObject(new Player(WIDTH/2 - 32, HEIGHT/2 - 32, ID.Player, handler)); //player spawns in the middle of the screen
-        handler.addObject(new BasicEnemy(r.nextInt(WIDTH - 50), r.nextInt(HEIGHT - 50), ID.BasicEnemy, handler));
+        handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
+        //handler.addObject(new BasicEnemy(r.nextInt(WIDTH - 50), r.nextInt(HEIGHT - 50), ID.BasicEnemy, handler));
     }
 
     public synchronized void start() {
@@ -100,7 +101,7 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.black);
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
-        //rendering the game objects]
+        //rendering the game objects
         handler.render(g);
 
         hud.render(g);
@@ -110,7 +111,7 @@ public class Game extends Canvas implements Runnable {
     }
 
     //sets our boundaries for our player
-    public static int clamp (int var, int min, int max) {
+    public static float clamp (float var, float min, float max) {
         //if our var is greater than max, return max so it doesn't go over max
         if (var >= max) {
             return var = max;
