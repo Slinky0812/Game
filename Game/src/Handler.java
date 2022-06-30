@@ -27,6 +27,10 @@ public class Handler {
         }
     }
 
+    public void clearEnemies() {
+        objects.removeIf(object -> object.getId() != ID.Player);
+    }
+
     //add game object to our list of game objects
     public void addObject (GameObject object) {
         this.objects.add(object);
