@@ -16,21 +16,29 @@ public class Game extends Canvas implements Runnable {
     private Handler handler;
     private HUD hud;
     private Spawn spawn;
+    private Menu menu;
+
+    public STATE gameState = STATE.Menu;
 
     //constructor
     public Game() {
         handler = new Handler();
+        menu = new Menu(this, handler);
         this.addKeyListener(new KeyInput(handler));
+        this.addMouseListener(menu);
 
         new Window(WIDTH, HEIGHT, "Let's build a game!", this);
         hud = new HUD();
         spawn = new Spawn(handler, hud);
 
+        //menu = new Menu(Game, Handler);
+
         r = new Random();
 
-        handler.addObject(new Player(WIDTH/2 - 32, HEIGHT/2 - 32, ID.Player, handler)); //player spawns in the middle of the screen
-        handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
-        handler.addObject(new BasicEnemy(r.nextInt(WIDTH - 50), r.nextInt(HEIGHT - 50), ID.BasicEnemy, handler));        
+        if (gameState == STATE.Game) {     
+            handler.addObject(new Player(WIDTH/2 - 32, HEIGHT/2 - 32, ID.Player, handler)); //player spawns in the middle of the screen
+            handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
+        }
     }
 
     public synchronized void start() {
@@ -85,8 +93,12 @@ public class Game extends Canvas implements Runnable {
 
     private void tick() {
         handler.tick();
-        hud.tick();
-        spawn.tick();
+        if (gameState == STATE.Game) {
+            hud.tick();
+            spawn.tick();
+        } else if (gameState == STATE.Menu) {
+            menu.tick();
+        }
     }
 
     private void render() {
@@ -107,7 +119,11 @@ public class Game extends Canvas implements Runnable {
         //rendering the game objects
         handler.render(g);
 
-        hud.render(g);
+        if (gameState == STATE.Game) {
+            hud.render(g);
+        } else if (gameState == STATE.Menu || gameState == STATE.Help) {
+            menu.render(g);
+        }
 
         g.dispose();
         bs.show();
