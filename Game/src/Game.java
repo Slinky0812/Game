@@ -23,12 +23,12 @@ public class Game extends Canvas implements Runnable {
     //constructor
     public Game() {
         handler = new Handler();
-        menu = new Menu(this, handler);
+        hud = new HUD();
+        menu = new Menu(this, handler, hud);
         this.addKeyListener(new KeyInput(handler));
         this.addMouseListener(menu);
 
         new Window(WIDTH, HEIGHT, "Let's build a game!", this);
-        hud = new HUD();
         spawn = new Spawn(handler, hud);
 
         //menu = new Menu(Game, Handler);
@@ -38,6 +38,10 @@ public class Game extends Canvas implements Runnable {
         if (gameState == STATE.Game) {     
             handler.addObject(new Player(WIDTH/2 - 32, HEIGHT/2 - 32, ID.Player, handler)); //player spawns in the middle of the screen
             handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
+        } else {
+            for (int i = 0; i < 20; i++) {
+                handler.addObject(new MenuParticle(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.MenuParticle, handler));
+            }
         }
     }
 
@@ -96,7 +100,20 @@ public class Game extends Canvas implements Runnable {
         if (gameState == STATE.Game) {
             hud.tick();
             spawn.tick();
-        } else if (gameState == STATE.Menu) {
+
+            if (hud.health <= 0) {
+                hud.health = 100;
+                gameState = STATE.End;
+                handler.clearEnemies();
+                for (int i = 0; i < handler.objects.size(); i++) {
+                    handler.removeObject(handler.objects.get(i));
+                }
+                for (int i = 0; i < 20; i++) {
+                    handler.addObject(new MenuParticle(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.MenuParticle, handler));
+                }
+                
+            }
+        } else if (gameState == STATE.Menu || gameState == STATE.End) {
             menu.tick();
         }
     }
@@ -121,7 +138,7 @@ public class Game extends Canvas implements Runnable {
 
         if (gameState == STATE.Game) {
             hud.render(g);
-        } else if (gameState == STATE.Menu || gameState == STATE.Help) {
+        } else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.End) {
             menu.render(g);
         }
 

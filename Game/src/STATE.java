@@ -1,5 +1,6 @@
 public enum STATE {
     Menu,
     Game,
-    Help
+    Help,
+    End,
 };
