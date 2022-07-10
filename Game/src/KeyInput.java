@@ -6,9 +6,12 @@ public class KeyInput extends KeyAdapter{
     private Handler handler;
     //boolean array to prevent sticky keys
     private boolean[] keyDown = new boolean[4];
+
+    Game game;
         
-    public KeyInput(Handler handler) {
+    public KeyInput(Handler handler, Game game) {
         this.handler = handler;
+        this.game = game;
 
         keyDown[0] = false; //w
         keyDown[1] = false; //s
@@ -42,6 +45,18 @@ public class KeyInput extends KeyAdapter{
                 } else if (key == KeyEvent.VK_D) {
                     tempObject.setVelX(5);
                     keyDown[3] = true;
+                }
+            }
+        }
+
+        //pausing the game
+        if (key == KeyEvent.VK_P) {
+
+            if (game.gameState == STATE.Game) {
+                if (Game.pause) {
+                    Game.pause = false;
+                } else {
+                    Game.pause = true;
                 }
             }
         }
