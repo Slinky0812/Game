@@ -1,15 +1,21 @@
 import java.awt.*;
 import java.util.*;
+import java.awt.image.*;
 
 public class Player extends GameObject {
     
     Random r = new Random();
     Handler handler;
+    private BufferedImage player_image;
 
     //constructor
     public Player(float x, float y, ID id, Handler handler) {
         super(x, y, id);
         this.handler = handler;
+
+        //load the player image
+        SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);
+        player_image = ss.grabImage(1, 1, 32, 32);
     }
 
     public Rectangle getBounds() {
@@ -25,7 +31,7 @@ public class Player extends GameObject {
         x = Game.clamp(x, 0, Game.WIDTH - 48);
         y = Game.clamp(y, 0, Game.HEIGHT - 68);
 
-        handler.addObject(new Trail(x, y, ID.Player, Color.white, 32, 32, 0.1f, handler));
+        //handler.addObject(new Trail(x, y, ID.Player, Color.white, 32, 32, 0.1f, handler));
 
         collision();
     }
@@ -47,8 +53,7 @@ public class Player extends GameObject {
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.blue);
-        g.fillRect((int) x, (int) y, 32, 32);
+        g.drawImage(player_image, (int) x, (int) y, null);
     }
 
 }

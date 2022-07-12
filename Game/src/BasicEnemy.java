@@ -1,8 +1,10 @@
 import java.awt.*;
+import java.awt.image.*;
 
 public class BasicEnemy extends GameObject {
 
     private Handler handler;
+    private BufferedImage enemy_image;
 
     //constructor
     public BasicEnemy(float x, float y, ID id, Handler handler) {
@@ -12,6 +14,9 @@ public class BasicEnemy extends GameObject {
 
         velX = 5;
         velY = 5;
+
+        SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);
+        enemy_image = ss.grabImage(3, 1, 16, 16);
     }
 
     public Rectangle getBounds() {
@@ -30,14 +35,14 @@ public class BasicEnemy extends GameObject {
             velX *= -1;
         }
 
-        handler.addObject(new Trail(x, y, ID.Trail, Color.red, 16, 16, 0.1f, handler));
+        //handler.addObject(new Trail(x, y, ID.Trail, Color.red, 16, 16, 0.1f, handler));
 
     }
 
     //draws our enemy
     public void render(Graphics g) {
-        g.setColor(Color.red);
-        g.fillRect((int) x, (int) y, 16, 16);
+        g.drawImage(enemy_image, (int) x, (int) y, null);
+
     }
     
 }

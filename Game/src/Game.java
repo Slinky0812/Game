@@ -1,6 +1,8 @@
 import java.awt.*;
-import java.awt.image.BufferStrategy;
+//import java.awt.image.BufferStrategy;
 import java.util.*;
+import java.awt.image.*;
+//import javax.imageio.*;
 
 
 public class Game extends Canvas implements Runnable {
@@ -23,10 +25,22 @@ public class Game extends Canvas implements Runnable {
     private Spawn spawn;
     private Menu menu;
 
-    public STATE gameState = STATE.Menu;
+    public static STATE gameState = STATE.Menu;
+
+    public static BufferedImage sprite_sheet;
 
     //constructor
     public Game() {
+
+        BufferedImageLoader loader = new BufferedImageLoader();
+
+        try {
+            sprite_sheet = loader.loadImage("C:/Users/Abdullah Moledina/OneDrive - University of Leeds/Desktop/Game/Game/res/sprite_sheet.png");
+            System.out.print("loaded");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         handler = new Handler();
         hud = new HUD();
         menu = new Menu(this, handler, hud);
@@ -34,6 +48,7 @@ public class Game extends Canvas implements Runnable {
         this.addMouseListener(menu);
 
         new Window(WIDTH, HEIGHT, "Let's build a game!", this);
+
         spawn = new Spawn(handler, hud, this);
 
         //menu = new Menu(Game, Handler);
