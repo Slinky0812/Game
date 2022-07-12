@@ -6,6 +6,7 @@ public class Handler {
 
     //list of all game objects
     LinkedList<GameObject> objects = new LinkedList<GameObject>();
+    public int speed = 5;
 
     public void tick() {
         //looping through every single game object in our game

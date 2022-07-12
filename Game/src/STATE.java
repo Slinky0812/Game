@@ -3,5 +3,6 @@ public enum STATE {
     Select,
     Game,
     Help,
+    Shop,
     End,
 };

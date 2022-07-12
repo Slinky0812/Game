@@ -34,16 +34,16 @@ public class KeyInput extends KeyAdapter{
             if (tempObject.getId() == ID.Player) {
                 //key events for player 1
                 if (key == KeyEvent.VK_W) {
-                    tempObject.setVelY(-5);
+                    tempObject.setVelY(-(handler.speed));
                     keyDown[0] = true;
                 } else if (key == KeyEvent.VK_S) {
-                    tempObject.setVelY(5);
+                    tempObject.setVelY(handler.speed);
                     keyDown[1] = true;
                 } else if (key == KeyEvent.VK_A) {
-                    tempObject.setVelX(-5);
+                    tempObject.setVelX(-(handler.speed));
                     keyDown[2] = true;
                 } else if (key == KeyEvent.VK_D) {
-                    tempObject.setVelX(5);
+                    tempObject.setVelX(handler.speed);
                     keyDown[3] = true;
                 }
             }
@@ -58,6 +58,14 @@ public class KeyInput extends KeyAdapter{
                 } else {
                     Game.pause = true;
                 }
+            }
+        }
+
+        if (key == KeyEvent.VK_SPACE) {
+            if (game.gameState == STATE.Game) {
+                game.gameState = STATE.Shop;
+            } else if (game.gameState == STATE.Shop) {
+                game.gameState = STATE.Game;
             }
         }
     }
