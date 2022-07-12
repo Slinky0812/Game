@@ -1,13 +1,24 @@
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * a representation of the window to draw our game
+ * inherits methods and attributes from Canvas
+ */
 public class Window extends Canvas {
 
+    //ATTRIBUTE
     private static final long serialVersionUID = 1L;
 
-    //constructor
+    /*
+     * constructor for the window object
+     * 
+     * @param width the width of the window
+     * @param height the height of the window
+     * @param title the title of the window
+     * @param game the game object
+     */
     public Window(int width, int height, String title, Game game) {
-
         //created a JFrame object, which is the frame for our window
         JFrame frame = new JFrame(title);
 

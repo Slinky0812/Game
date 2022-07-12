@@ -1,14 +1,25 @@
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * a class to represent the key input
+ * inherits methods and attributes from KeyAdapter
+ * 
+ * @author Abdulla Moledina
+ */
 public class KeyInput extends KeyAdapter{
 
+    //ATTRIBUTES
     private Handler handler;
-    //boolean array to prevent sticky keys
-    private boolean[] keyDown = new boolean[4];
-
+    private boolean[] keyDown = new boolean[4]; //boolean array to prevent sticky keys
     Game game;
         
+    /*
+     * constructor for the key input
+     * 
+     * @param handler the handler of the game
+     * @param game the game object
+     */
     public KeyInput(Handler handler, Game game) {
         this.handler = handler;
         this.game = game;
@@ -19,12 +30,15 @@ public class KeyInput extends KeyAdapter{
         keyDown[3] = false; //d
     }
     
-    //move the players in the direction intended when the correct key is pressed
+    /*
+     * checks for key presses
+     * move the players in the direction intended when the correct key is pressed
+     * 
+     * @param e the key event
+     */
     public void keyPressed(KeyEvent e) {
         //setting key equal to the ASCII value of the key that was pressed
         int key = e.getKeyCode();
-
-
 
         //looping through every single game object in our game
         for (int i = 0; i < handler.objects.size(); i++) {
@@ -51,8 +65,7 @@ public class KeyInput extends KeyAdapter{
 
         //pausing the game
         if (key == KeyEvent.VK_P) {
-
-            if (game.gameState == STATE.Game) {
+            if (Game.gameState == STATE.Game) {
                 if (Game.pause) {
                     Game.pause = false;
                 } else {
@@ -61,16 +74,22 @@ public class KeyInput extends KeyAdapter{
             }
         }
 
+        //opening the shop menu
         if (key == KeyEvent.VK_SPACE) {
-            if (game.gameState == STATE.Game) {
-                game.gameState = STATE.Shop;
-            } else if (game.gameState == STATE.Shop) {
-                game.gameState = STATE.Game;
+            if (Game.gameState == STATE.Game) {
+                Game.gameState = STATE.Shop;
+            } else if (Game.gameState == STATE.Shop) {
+                Game.gameState = STATE.Game;
             }
         }
     }
     
-    //get the players to stop moving in that direction when key is released.
+    /*
+     * checks for key releases
+     * stops the player from moving in the direction intended when the correct key is released
+     * 
+     * @param e the key event
+     */
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
 
@@ -106,10 +125,6 @@ public class KeyInput extends KeyAdapter{
         if (key == KeyEvent.VK_ESCAPE) {
             System.exit(1);
         }
-    }
-    
-    public void keyTyped(KeyEvent e) {
-        
     }
         
 }

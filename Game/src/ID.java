@@ -1,4 +1,8 @@
-//allows us to identify different objects in the game
+/**
+ * an enumerated type allowing us to identify objects within our game
+ * 
+ * @author Abdulla Moledina
+ */
 public enum ID {
     Player(),
     BasicEnemy(),

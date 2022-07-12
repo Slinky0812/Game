@@ -1,7 +1,13 @@
 import java.awt.*;
 
+/**
+ * a class to represent the HUD of the game
+ * 
+ * @author Abdulla Moledina
+ */
 public class HUD {
 
+    //ATTRIBUTES
     public int bounds = 0;
     public static float health = 100;
     private float greenValue = 255;
@@ -9,6 +15,9 @@ public class HUD {
     private int score = 0;
     private int level = 1;
 
+    /*
+     * updates the HUD
+     */
     public void tick() {
         health = Game.clamp(health, 0, 100 + (bounds / 2));
         
@@ -21,6 +30,11 @@ public class HUD {
         score+=1;
     }
 
+    /*
+     * renders the HUD
+     * 
+     * @param g the graphics object
+     */
     public void render(Graphics g) {
         g.setColor(Color.gray);
         g.fillRect(15, 15, 200 + bounds, 32);
@@ -38,20 +52,42 @@ public class HUD {
         g.drawString("Space for shop", 15, 94);
     }
 
-    //setters
+    //SETTERS
+
+    /*
+     * sets the health of the player
+     * 
+     * @param health the health of the player
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
+    /*
+     * sets the level of the player
+     * 
+     * @param level the level of the player
+     */
     public void setLevel(int level) {
         this.level = level;
     }
 
-    //getters
+    //GETTERS
+
+    /*
+     * gets the score of the player
+     * 
+     * @return the score of the player
+     */
     public int getScore() {
         return score;
     }
 
+    /*
+     * gets the level of the player
+     * 
+     * @return the level of the player
+     */
     public int getLevel() {
         return level;
     }

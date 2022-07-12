@@ -1,17 +1,18 @@
 import java.awt.*;
-//import java.awt.image.BufferStrategy;
 import java.util.*;
 import java.awt.image.*;
-//import javax.imageio.*;
 
-
+/**
+ * main class for the game.
+ * 
+ * @author Abdulla Moledina
+ */
 public class Game extends Canvas implements Runnable {
 
-    //attributes
+    //ATTRIBUTES
     public static final long serialVersionUID = 1L;
     public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9; //gives approx 16 by 9 ratio
-    //entire game is gonna run within this thread
-    private Thread thread;
+    private Thread thread;     //entire game is gonna run within this thread
     private boolean running = false;
 
     public static boolean pause = false;
@@ -30,14 +31,14 @@ public class Game extends Canvas implements Runnable {
 
     public static BufferedImage sprite_sheet;
 
-    //constructor
+    /*
+     * constructor for the game
+     */
     public Game() {
-
         BufferedImageLoader loader = new BufferedImageLoader();
 
         try {
             sprite_sheet = loader.loadImage("C:/Users/Abdullah Moledina/OneDrive - University of Leeds/Desktop/Game/Game/res/sprite_sheet.png");
-            System.out.print("loaded");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,10 +55,9 @@ public class Game extends Canvas implements Runnable {
 
         spawn = new Spawn(handler, hud, this);
 
-        //menu = new Menu(Game, Handler);
-
         r = new Random();
 
+        //checks if the game is running
         if (gameState == STATE.Game) {     
             handler.addObject(new Player(WIDTH/2 - 32, HEIGHT/2 - 32, ID.Player, handler)); //player spawns in the middle of the screen
             handler.addObject(new SmartEnemy(r.nextInt(Game.WIDTH - 50), r.nextInt(Game.HEIGHT - 50), ID.SmartEnemy, handler));
@@ -68,6 +68,9 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
+    /* 
+     * starts the game and runs it in a thread
+     */
     public synchronized void start() {
         //starting a new thread
         thread = new Thread(this);
@@ -75,6 +78,9 @@ public class Game extends Canvas implements Runnable {
         running = true;
     }
 
+    /* 
+     * stops the game and closes the thread
+     */
     public synchronized void stop() {
         try {
             thread.join();
@@ -85,6 +91,9 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
+    /* 
+     * runs the game
+     */
     public void run() {
         //means the user doesn't need to click on the screen to use keyboard controls
         this.requestFocus();
@@ -115,27 +124,33 @@ public class Game extends Canvas implements Runnable {
         }
 
         stop();
-
     }
 
+    /* 
+     * updates the game every tick
+     */
     private void tick() {
+        //checks if the game is running
         if (gameState == STATE.Game) {
+            //updates the game if the game isn't paused
             if (!pause) {
                 hud.tick();
                 spawn.tick();
                 handler.tick();
 
-                if (hud.health <= 0) {
-                    hud.health = 100;
+                //checks if the player has died
+                if (HUD.health <= 0) {
+                    HUD.health = 100;
                     gameState = STATE.End;
+                    //removes all the enemies
                     handler.clearEnemies();
                     for (int i = 0; i < handler.objects.size(); i++) {
                         handler.removeObject(handler.objects.get(i));
                     }
+                    //adds menu particles to the background of the game
                     for (int i = 0; i < 20; i++) {
                         handler.addObject(new MenuParticle(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.MenuParticle, handler));
                     }
-                    
                 }
             }
         } else if (gameState == STATE.Menu || gameState == STATE.End || gameState == STATE.Select) {
@@ -144,6 +159,9 @@ public class Game extends Canvas implements Runnable {
         }
     }
 
+    /* 
+     * renders the game every tick
+     */
     private void render() {
         //clearing the screen
         BufferStrategy bs = this.getBufferStrategy();
@@ -160,12 +178,12 @@ public class Game extends Canvas implements Runnable {
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         //rendering the game objects
-        //handler.render(g);
-        if(pause) {
+        if (pause) {
             g.setColor(Color.white);
             g.drawString("Paused", WIDTH/2 - 50, HEIGHT/2);
         }
 
+        //calls the render methods of certain classes depending on the state of the game.
         if (gameState == STATE.Game) {
             hud.render(g);
             handler.render(g);
@@ -180,7 +198,15 @@ public class Game extends Canvas implements Runnable {
         bs.show();
     }
 
-    //sets our boundaries for our player
+    /*
+     * sets boundaries for game objects
+     * 
+     * @param var the variable we are checking
+     * @param min the minimum value that the variable can be
+     * @param max the maximum value that the variable can be
+     * 
+     * @return the variable that is within the boundaries
+     */
     public static float clamp (float var, float min, float max) {
         //if our var is greater than max, return max so it doesn't go over max
         if (var >= max) {
@@ -188,11 +214,17 @@ public class Game extends Canvas implements Runnable {
         //if our var is less than max, return max so it doesn't go over min
         } else if (var <= min) {
             return var = min;
+        //our var is fine, return it
         } else {
             return var;
         }
     }
 
+    /*
+     * main method
+     * 
+     * @param args the command line arguments
+     */
     public static void main (String args[]) {
         new Game();
     }

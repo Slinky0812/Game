@@ -1,11 +1,25 @@
 import java.awt.*;
 
+/**
+ * a representation of the smart enemy object
+ * inherits methods and attributes from GameObject
+ * 
+ * @author Abdulla Moledina
+ */
 public class SmartEnemy extends GameObject {
 
+    //ATTRIBUTE
     private Handler handler;
     private GameObject player;
 
-    //constructor
+    /*
+     * constructor for the smart enemy object
+     * 
+     * @param x the x coordinate of the smart enemy
+     * @param y the y coordinate of the smart enemy
+     * @param ID the ID of the smart enemy
+     * @param handler the handler of the game
+     */
     public SmartEnemy(float x, float y, ID id, Handler handler) {
         super(x, y, id);
 
@@ -20,11 +34,18 @@ public class SmartEnemy extends GameObject {
 
     }
 
+    /*
+     * gets the bounds of the smart enemy and returns it
+     * 
+     * @return a rectangle representing the bounds of the smart enemy
+     */
     public Rectangle getBounds() {
         return new Rectangle((int) x, (int) y, 16, 16);
     }
 
-    //makes our enemy move'
+    /*
+     * updates the smart enemy and makes it move
+     */
     public void tick() {
         x += velX;
         y += velY;
@@ -40,11 +61,15 @@ public class SmartEnemy extends GameObject {
         velX = ((float) ((-1/distance) * diffX));
         velY = ((float) ((-1/distance) * diffY));   
 
+        //adds a trail behind the enemy
         handler.addObject(new Trail(x, y, ID.Trail, Color.green, 16, 16, 0.1f, handler));
-
     }
 
-    //draws our enemy
+    /*
+     * renders the smart enemy
+     * 
+     * @param g the graphics object to render to
+     */
     public void render(Graphics g) {
         g.setColor(Color.green);
         g.fillRect((int) x, (int) y, 16, 16);

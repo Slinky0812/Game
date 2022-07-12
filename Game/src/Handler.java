@@ -1,13 +1,21 @@
 import java.util.*;
 import java.awt.*;
 
-//maintain or update and render objects in our game
+/**
+ * a representation of the handler used in our game
+ * maintains or updates and renders the game objects in our game
+ * 
+ * @author Abdulla Moledina
+ */
 public class Handler {
 
-    //list of all game objects
-    LinkedList<GameObject> objects = new LinkedList<GameObject>();
+    //ATTRIBUTES
+    LinkedList<GameObject> objects = new LinkedList<GameObject>(); //list of all game objects
     public int speed = 5;
 
+    /*
+     * updates every object in the list of objects
+     */
     public void tick() {
         //looping through every single game object in our game
         for (int i = 0; i < objects.size(); i++) {
@@ -18,6 +26,11 @@ public class Handler {
         }
     }
 
+    /*
+     * renders every object in the list of objects
+     * 
+     * @param g the graphics object
+     */
     public void render(Graphics g) {
         //looping through every single game object in our game
         for (int i = 0; i < objects.size(); i++) {
@@ -28,16 +41,27 @@ public class Handler {
         }
     }
 
+    /*
+     * removes all the objects that aren't the player
+     */
     public void clearEnemies() {
         objects.removeIf(object -> object.getId() != ID.Player);
     }
 
-    //add game object to our list of game objects
+    /*
+     * adds an object to the list of objects
+     * 
+     * @param object the object to be added
+     */
     public void addObject (GameObject object) {
         this.objects.add(object);
     }
 
-    //remove game object from our list of game objects
+    /*
+     * removes an object from the list of objects
+     * 
+     * @param object the object to be removed
+     */
     public void removeObject (GameObject object) {
         this.objects.remove(object);
     }

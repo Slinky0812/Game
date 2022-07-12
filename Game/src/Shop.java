@@ -1,19 +1,37 @@
 import java.awt.event.*;
 import java.awt.*;
 
+/**
+ * a class to represent the shop screen
+ * inherits methods and attributes from MouseAdapter
+ * 
+ * @author Abdulla Moledina
+ */
 public class Shop extends MouseAdapter {
 
+    //ATTRIBUTES
     private Handler handler;
     private HUD hud;
     private int b1 = 100;
     private int b2 = 100;
     private int b3 = 100;
     
+    /*
+     * constructor for the shop screen
+     * 
+     * @param handler the handler of the game
+     * @param hud the HUD of the game
+     */
     public Shop(Handler handler, HUD hud) {
         this.handler = handler;
         this.hud = hud;
     }
 
+    /*
+     * renders the objects on the shop screen
+     * 
+     * @param g the graphics object
+     */
     public void render (Graphics g) {
         g.setColor(Color.white);
         g.setFont(new Font("arial", 0, 48));
@@ -39,6 +57,11 @@ public class Shop extends MouseAdapter {
         g.drawString("Press SPACE to go back", Game.WIDTH/2 - 50, 330);
     }
 
+    /*
+     * finds where the mouse is and checks if the user clicked on a box
+     * 
+     * @param e the mouse event
+     */
     public void mousePressed (MouseEvent e) {
         int mx = e.getX();
         int my = e.getY();

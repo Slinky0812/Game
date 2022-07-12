@@ -2,30 +2,48 @@ import java.awt.*;
 import java.util.*;
 import java.awt.image.*;
 
+/**
+ * a representation of the hard enemy object
+ * inherits methods and attributes from GameObject
+ * 
+ * @author Abdulla Moledina
+ */
 public class HardEnemy extends GameObject {
 
-    private Handler handler;
+    //ATTRIBUTES
     private Random r = new Random();
     private BufferedImage enemy_image;
 
-    //constructor
-    public HardEnemy(float x, float y, ID id, Handler handler) {
+    /*
+     * constructor for the hard enemy object
+     * 
+     * @param x the x coordinate of the hard enemy
+     * @param y the y coordinate of the hard enemy
+     * @param ID the ID of the hard enemy
+     */
+    public HardEnemy(float x, float y, ID id) {
         super(x, y, id);
-
-        this.handler = handler;
 
         velX = 5;
         velY = 5;
 
+        //load the enemy image
         SpriteSheet ss = new SpriteSheet(Game.sprite_sheet);
         enemy_image = ss.grabImage(7, 1, 16, 16);
     }
 
+    /*
+     * gets the bounds of the hard enemy and returns it
+     * 
+     * @return a rectangle representing the bounds of the hard enemy
+     */
     public Rectangle getBounds() {
         return new Rectangle((int) x, (int) y, 16, 16);
     }
 
-    //makes our enemy move
+    /*
+     * updates the hard enemy and makes it move
+     */
     public void tick() {
         x += velX;
         y += velY;
@@ -44,12 +62,13 @@ public class HardEnemy extends GameObject {
                 velX = (r.nextInt(7) + 1) * -1;
             }
         }
-
-        //handler.addObject(new Trail(x, y, ID.Trail, Color.yellow, 16, 16, 0.1f, handler));
-
     }
 
-    //draws our enemy
+    /*
+     * renders the hard enemy
+     * 
+     * @param g the Graphics object to render to
+     */
     public void render(Graphics g) {
         g.drawImage(enemy_image, (int) x, (int) y, null);
 
